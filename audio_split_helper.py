@@ -1,8 +1,19 @@
 import argparse
 import csv
 from datetime import datetime, timedelta
+from typing import List
 
-def generate_script(reference_timestamp, recording_datetime, input_file, debug):
+def save_to_file(lines: List[str], filename: str) -> None:
+    """Save a list of lines to a file."""
+    with open(filename, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+def generate_script(reference_timestamp: str, 
+                    recording_datetime: datetime, 
+                    input_file: str, 
+                    debug: bool) \
+                        -> str:
+
     # Parse the reference timestamp and recording datetime
     reference_seconds = timedelta(hours=int(reference_timestamp.split(":")[0]),
                                   minutes=int(reference_timestamp.split(":")[1]),
@@ -83,17 +94,25 @@ def generate_script(reference_timestamp, recording_datetime, input_file, debug):
     final_script = "\n".join(script_lines)
     print(final_script)
 
+    return final_script
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a bash script to split audio based on segments and reference time.")
     parser.add_argument("reference_timestamp", type=str, help="Reference timestamp in HH:MM:SS format (e.g., 01:26:31).")
     parser.add_argument("recording_datetime", type=str, help="Datetime that represents the given moment of time of the recording in YYYY-MM-DD HH:MM:SS format.")
     parser.add_argument("--input-file", type=str, required=True, help="Path to the CSV file with audio segment data.")
+    parser.add_argument("-o", "--output-file", type=str, help="Output file to save the script")
     parser.add_argument(
         '--debug',
         action='store_true', 
         help='print debug messages to stderr'
-    )    
+    )
     args = parser.parse_args()
 
-    generate_script(args.reference_timestamp, args.recording_datetime, args.input_file, args.debug)
+    script = generate_script(args.reference_timestamp, args.recording_datetime, args.input_file, args.debug)
+    
+    if args.output:
+        print("Saving to file: {args.output_file}")
+        save_to_file(script, args.output_file)
+    
 
