@@ -94,6 +94,32 @@ Example output filenames:
 2024-10-26_0000_Histec.mp3
 ```
 
+## Tests
+
+To run all tests, use:
+
+```sh
+poetry run pytest
+```
+
+To run tests **with coverage**:
+
+```sh
+poetry run pytest --cov=script  # Replace 'script' with your module name
+```
+
+To run a **specific test file**:
+
+```sh
+poetry run pytest tests/test_script.py
+```
+
+To run a **single test function**:
+
+```sh
+poetry run pytest tests/test_script.py::test_generate_script_valid
+```
+
 ## License
 This project is licensed under the MIT License.
 
