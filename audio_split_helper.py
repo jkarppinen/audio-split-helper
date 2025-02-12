@@ -40,7 +40,7 @@ def generate_script(reference_timestamp: str,
                     print(f"Skipping malformed row: {row}")
 
     # Function to convert time strings to seconds
-    def time_to_seconds(time_str):
+    def time_to_seconds(time_str: str):
         h, m, s = 0, 0, 0
         parts = time_str.split(":")
         if len(parts) == 3:
