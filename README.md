@@ -105,19 +105,19 @@ poetry run pytest
 To run tests **with coverage**:
 
 ```sh
-poetry run pytest --cov=script  # Replace 'script' with your module name
+poetry run pytest
 ```
 
 To run a **specific test file**:
 
 ```sh
-poetry run pytest tests/test_script.py
+poetry run pytest tests/test_general.py
 ```
 
 To run a **single test function**:
 
 ```sh
-poetry run pytest tests/test_script.py::test_generate_script_valid
+poetry run pytest tests/test_general.py::TestScriptGeneration::test_generate_script_invalid_csv
 ```
 
 ## License
