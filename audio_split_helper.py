@@ -34,7 +34,7 @@ def generate_script(reference_timestamp: str,
             # Check if row has at least the expected number of elements
             if len(row) >= 5:
                 # Expecting each row as: date, time, artist, start, end
-                data.append((row[0], row[1], row[2], row[3], row[4] if len(row) > 5 else None))
+                data.append((row[0], row[1], row[2], row[3], row[4] if len(row) >= 5 else None))
             else:
                 if debug:
                     print(f"Skipping malformed row: {row}")
