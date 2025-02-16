@@ -101,17 +101,16 @@ if __name__ == "__main__":
     parser.add_argument("reference_timestamp", type=str, help="Reference timestamp in HH:MM:SS format (e.g., 01:26:31).")
     parser.add_argument("recording_datetime", type=str, help="Datetime that represents the given moment of time of the recording in YYYY-MM-DD HH:MM:SS format.")
     parser.add_argument("--input-file", type=str, required=True, help="Path to the CSV file with audio segment data.")
-    parser.add_argument("-o", "--output-file", type=str, help="Output file to save the script")
+    parser.add_argument("-o", "--output-file", type=str, help="Output file to save the script", default=None)
     parser.add_argument(
         '--debug',
         action='store_true', 
         help='print debug messages to stderr'
     )
     args = parser.parse_args()
-
-    script = generate_script(args.reference_timestamp, args.recording_datetime, args.input_file, args.debug)
     
-    if args.output:
+    script = generate_script(args.reference_timestamp, args.recording_datetime, args.input_file, args.debug)
+    if args.output_file is not None:
         print("Saving to file: {args.output_file}")
         save_to_file(script, args.output_file)
     
